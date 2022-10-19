@@ -1,19 +1,18 @@
 import { Router } from 'express';
 import { CategoriesRepository } from '../repositories/CategoryRepository';
+import { CreateCategoryService } from '../services/CreateCategoryService';
 
 const categoriesRoutes = Router();
 const categoriesRepository = new CategoriesRepository();
 
 categoriesRoutes.post("/", (request, response) => {
+    // A rota é responsável por receber a requisição, chamar algum servico ou repositorio
     const { name, description } = request.body;
 
-    const categoryAlreadyExists = categoriesRepository.findByName(name);
-
-    if(categoryAlreadyExists) {
-        return response.status(400).json({error: "Category Already exists!"});
-    }
-
-    categoriesRepository.create({ name, description} );
+    //tiramos a responsabilidade de rotas de criar um novo repositorio
+    // SOLID -> S -> SRP -> Single Reponsability Principle (Principio da responsabilidade unica)
+    const createCategoryService = new CreateCategoryService(categoriesRepository);
+    createCategoryService.execute({ name, description });
 
     return response.status(201).send();
 });
