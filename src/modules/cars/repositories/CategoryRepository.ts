@@ -1,12 +1,9 @@
 import { Category } from "../model/Category";
 import { ICategoriesRepository, ICreateCategoryDTO } from "./ICategoryRepository";
 
-// repositorios -> Camada responsavel pela manipulação de dados (Banco de dados)
-
-
 class CategoriesRepository implements ICategoriesRepository {
-    private categories: Array<Category>;  // Aonde vai ficar a conexão com database
-
+    private categories: Array<Category>;  
+    
     constructor() {
         this.categories = [];
     }
