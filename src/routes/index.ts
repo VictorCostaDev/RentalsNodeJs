@@ -1,4 +1,4 @@
-import { application, Router } from "express";
+import { Router } from "express";
 import { categoriesRoutes } from "./categories.routes";
 import { specificationsRoutes } from "./specification.routes";
 
